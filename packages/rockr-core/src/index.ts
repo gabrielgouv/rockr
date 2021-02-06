@@ -1,3 +1,4 @@
-const teste = 'test'
+import { Context } from './context/context'
+import { Variable } from './context/variable'
 
-export default teste
+export { Context, Variable }
