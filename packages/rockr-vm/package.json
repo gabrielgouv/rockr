@@ -1,5 +1,5 @@
 {
-  "name": "@rockr/rockr-core",
+  "name": "@rockr/rockr-vm",
   "version": "1.0.0",
   "main": "dist/index",
   "types": "dist/index",
@@ -12,10 +12,9 @@
     "compile": "tsc -p tsconfig.build.json"
   },
   "dependencies": {
-    "@types/express": "^4.17.11",
-    "@types/winston": "^2.4.4",
-    "express": "^4.17.1",
-    "winston": "^3.3.3"
+    "@rockr/rockr-core": "^1.0.0",
+    "@rockr/rockr-generate-script": "^1.0.0",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "typescript": "~4.1.3"

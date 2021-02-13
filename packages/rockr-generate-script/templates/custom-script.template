@@ -1,0 +1,8 @@
+function onCreate() {
+    // Custom code before endpoint created goes here
+}
+
+function onReply(context) {
+    // custom code per request goes here
+    return context.reply();
+}

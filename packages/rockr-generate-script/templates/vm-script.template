@@ -1,0 +1,16 @@
+((require, ctx) => {
+    const express = require('express');
+    // const bodyParser = require('body-parser');
+    <%=LIBRARIES=%>
+
+    const app = express();
+
+    // app.use(bodyParser.urlencoded({ extended: true }));
+    // app.use(bodyParser.json());
+
+    <%=ENDPOINTS_SCRIPTS=%>
+
+    app.listen(<%=SERVICE_PORT=%>, function() {
+        console.log(`[VM] Running service on port <%=SERVICE_PORT=%>...`);
+    });
+});
