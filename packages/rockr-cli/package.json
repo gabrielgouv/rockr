@@ -1,5 +1,5 @@
 {
-    "name": "@rockr/rockr-server",
+    "name": "@rockr/rockr-cli",
     "version": "1.0.0",
     "main": "dist/index",
     "types": "dist/index",
