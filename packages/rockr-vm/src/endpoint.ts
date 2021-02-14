@@ -53,6 +53,7 @@ export class Endpoint {
 
     public getScript() {
         return new EndpointScript(this.path, this.method, this.customScript, this.response?.getContent(), this.response?.getVariables())
+            .setEndpointId(this.endpointId)
     }
 
 }

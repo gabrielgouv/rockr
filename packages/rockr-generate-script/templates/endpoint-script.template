@@ -1,6 +1,7 @@
-endpoint_<%=ENDPOINT_UUID=%>();
-function endpoint_<%=ENDPOINT_UUID=%>() {
+endpoint_<%=ENDPOINT_NAME=%>();
+function endpoint_<%=ENDPOINT_NAME=%>() {
     const context = new ctx();
+    context.addMetadata('endpoint_id', '<%=ENDPOINT_ID=%>')
     context.internal.setupContext(`<%=RESPONSE_STRING=%>`, `<%=ENDPOINT_PATH=%>`, <%=RESPONSE_VARS=%>);
 
     <%=CUSTOM_SCRIPT=%>
@@ -9,7 +10,8 @@ function endpoint_<%=ENDPOINT_UUID=%>() {
 
     app.<%=HTTP_METHOD=%>('<%=ENDPOINT_PATH=%>', (req_<%=REQ=%>, res_<%=RES=%>) => {
         const reqUrl = req_<%=REQ=%>.protocol + '://' + req_<%=REQ=%>.get('host') + req_<%=REQ=%>.originalUrl;
-        context.internal.log('info', `Request to '${reqUrl}'`)
+        context.internal.log('info', `Request to '${reqUrl}'`);
+        context.internal.setState('replying');
         context.internal.updateContext(req_<%=REQ=%>, res_<%=RES=%>); // internal function
         return onReply(); // generated in CUSTOM_SCRIPT
     });
