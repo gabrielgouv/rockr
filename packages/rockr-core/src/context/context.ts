@@ -90,6 +90,10 @@ export namespace Context {
             this.responseValue = responseValue
         }
 
+        public log(level: string, message: string) {
+            logger.log(level, message)
+        }
+
         public getParent() {
             return this.parent
         }

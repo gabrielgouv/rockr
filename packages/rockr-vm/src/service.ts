@@ -1,6 +1,6 @@
 import { Endpoint } from "./endpoint";
 import * as vm from "vm";
-import { Context, generateUniqueId, logger } from "@rockr/rockr-core";
+import {Context, generateIdByName, generateUniqueId, logger, parseToKebabCase} from "@rockr/rockr-core";
 import { VmScript } from "@rockr/rockr-generate-script";
 
 export class Service {
@@ -8,10 +8,11 @@ export class Service {
     private readonly serviceId: string
     private readonly endpoints: Endpoint[]
 
-    constructor(private name: string, private port: number, private rootPath?: string) {
-        this.serviceId = 'Service::' + generateUniqueId()
+    constructor(private readonly name: string, private port: number, private rootPath?: string) {
+        this.name = parseToKebabCase(this.name)
+        this.serviceId = 'Service::' + generateIdByName(this.name)
         this.endpoints = []
-        logger.info(`Created ${this.tryGetServiceName()}`)
+        logger.info(`Created ${this.serviceId}`)
     }
 
     public createEndpoint(endpoint: Endpoint) {
@@ -19,7 +20,7 @@ export class Service {
             endpoint.setRootPath(this.rootPath)
         }
         this.endpoints.push(endpoint)
-        logger.info(`Attached '${endpoint.getEndpointPath()}' (${endpoint.tryGetEndpointName()}) to ${this.tryGetServiceName()}`)
+        logger.info(`Attached '${endpoint.getEndpointPath()}' (${endpoint.getEndpointId()}) to ${this.serviceId}`)
     }
 
     public addEndpoints(endpoints: Endpoint[]) {
@@ -30,12 +31,8 @@ export class Service {
         return this.serviceId
     }
 
-    public tryGetServiceName(): string {
-        return this.name ? 'Service::' + this.name : this.serviceId
-    }
-
     public run() {
-        logger.info(`Running ${this.tryGetServiceName()} on port ${this.port}`)
+        logger.info(`Running ${this.serviceId} on http://localhost:${this.port}/`)
         vm.runInThisContext(this.getScript())(require, Context)
     }
 

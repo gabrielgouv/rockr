@@ -1,20 +1,27 @@
 import { EndpointScript, HttpMethod } from "@rockr/rockr-generate-script";
-import { generateUniqueId } from "@rockr/rockr-core";
+import {generateIdByName, parseToKebabCase} from "@rockr/rockr-core";
 import { Response } from "./response";
 
 export class Endpoint {
 
     private readonly endpointId: string
-    private name: string
     private response: Response
 
-    constructor(private path: string, private method: HttpMethod, private customScript?: string) {
-        this.endpointId = 'Endpoint::' + generateUniqueId()
+    constructor(private name: string | undefined, private path: string, private method: HttpMethod, private customScript?: string) {
+        // TODO: Validate name
+        if (!name || name.trim() === '') {
+            this.name = parseToKebabCase(this.path)
+        }
+        this.endpointId = 'Endpoint::' + generateIdByName(this.name)
     }
 
     public setName(name: string): Endpoint {
         this.name = name
         return this
+    }
+
+    public getName(): string {
+        return this.name
     }
 
     public setResponse(response: Response): Endpoint {
@@ -42,10 +49,6 @@ export class Endpoint {
 
     public getEndpointPath() : string {
         return this.path
-    }
-
-    public tryGetEndpointName(): string {
-        return this.name ? 'Endpoint::' + this.name : this.endpointId
     }
 
     public getScript() {

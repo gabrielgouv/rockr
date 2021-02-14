@@ -11,6 +11,6 @@
     <%=ENDPOINTS_SCRIPTS=%>
 
     app.listen(<%=SERVICE_PORT=%>, function() {
-        console.log(`[VM] Running service on port <%=SERVICE_PORT=%>...`);
+        // console.log(`[VM] Running service on port <%=SERVICE_PORT=%>...`);
     });
 });

@@ -4,7 +4,7 @@ import { HttpMethod } from "@rockr/rockr-generate-script";
 import { Variable } from "@rockr/rockr-core";
 import { Response } from "./response";
 
-const service = new Service('my-service', 9098, '/api')
+const service = new Service('My Service', 9098, '/api')
 
 const customScript = `
 function setup() {
@@ -58,17 +58,17 @@ const variables: Variable[] = [
 
 const response = new Response(responseContent, variables)
 
-service.createEndpoint(new Endpoint('/test', HttpMethod.GET)
+service.createEndpoint(new Endpoint('endpoint de test', '/test', HttpMethod.GET)
     .setName('test-endpoint')
     .setResponse(response)
     .useCustomScript(customScript))
-service.createEndpoint(new Endpoint('/post', HttpMethod.POST))
+service.createEndpoint(new Endpoint('', '/post', HttpMethod.POST))
 
 service.run()
 
 const service2 = new Service('my-service-2', 9099, '/api')
 
-service2.createEndpoint(new Endpoint('/test2', HttpMethod.GET).setName('test-endpoint2'))
-service2.createEndpoint(new Endpoint('/post2', HttpMethod.POST))
+service2.createEndpoint(new Endpoint('', '/test2', HttpMethod.GET).setName('test-endpoint2'))
+service2.createEndpoint(new Endpoint('', '/post2', HttpMethod.POST))
 
 service2.run()

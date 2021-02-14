@@ -8,6 +8,8 @@ function endpoint_<%=ENDPOINT_UUID=%>() {
     setup(); // generated in CUSTOM_SCRIPT
 
     app.<%=HTTP_METHOD=%>('<%=ENDPOINT_PATH=%>', (req_<%=REQ=%>, res_<%=RES=%>) => {
+        const reqUrl = req_<%=REQ=%>.protocol + '://' + req_<%=REQ=%>.get('host') + req_<%=REQ=%>.originalUrl;
+        context.internal.log('info', `Request to '${reqUrl}'`)
         context.internal.updateContext(req_<%=REQ=%>, res_<%=RES=%>); // internal function
         return onReply(); // generated in CUSTOM_SCRIPT
     });
