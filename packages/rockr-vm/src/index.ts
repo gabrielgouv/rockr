@@ -7,12 +7,14 @@ import { Response } from "./response";
 const service = new Service('my-service', 9098, '/api')
 
 const customScript = `
-function onCreate() {
-    console.log('oncreate')
+function setup() {
+    context.log('on create log')
+    context.setVariable('name', 'john')
 }
 
-function onReply(context) {
-    console.log('oie')
+function onReply() {
+    context.log('param name: ' + context.getParameter('name'))
+    // context.setVariable('name', context.getParameter('name'))
     context.setResponseHeader('Content-Type', 'application/json')
     return context.reply();
 }
@@ -26,7 +28,7 @@ const responseContent = `
         "email": "<%randomEmail%>"
     },
     {
-        "name": "Paul",
+        "name": "<%name%>",
         "age": <%age%>,
         "email": "<%randomEmail%>"
     },

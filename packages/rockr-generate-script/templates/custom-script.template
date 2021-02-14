@@ -1,4 +1,4 @@
-function onCreate() {
+function setup() {
     // Custom code before endpoint created goes here
 }
 

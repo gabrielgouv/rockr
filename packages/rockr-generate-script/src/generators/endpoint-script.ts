@@ -17,7 +17,6 @@ export class EndpointScript {
     private readonly TEMPLATE_ENDPOINT_SCRIPT = '../../templates/endpoint-script.template'
 
     constructor(private path: string, private httpMethod: HttpMethod = HttpMethod.GET, private customScript?: string, private response?: string, private variables?: Variable[]) {
-        console.log(JSON.stringify(this.variables))
     }
 
     public withMethod(httpMethod: HttpMethod): EndpointScript {

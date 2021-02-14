@@ -5,11 +5,11 @@ function endpoint_<%=ENDPOINT_UUID=%>() {
 
     <%=CUSTOM_SCRIPT=%>
 
-    onCreate(context); // generated in CUSTOM_SCRIPT
+    setup(); // generated in CUSTOM_SCRIPT
 
     app.<%=HTTP_METHOD=%>('<%=ENDPOINT_PATH=%>', (req_<%=REQ=%>, res_<%=RES=%>) => {
         context.internal.updateContext(req_<%=REQ=%>, res_<%=RES=%>); // internal function
-        return onReply(context); // generated in CUSTOM_SCRIPT
+        return onReply(); // generated in CUSTOM_SCRIPT
     });
 }
 

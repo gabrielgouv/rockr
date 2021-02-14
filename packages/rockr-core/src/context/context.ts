@@ -28,22 +28,22 @@ export class Context {
         logger.info(`Removed response header: '${key}'`)
     }
 
-    public setVariable(variableName: string, value: any): boolean {
-        logger.info(`Request to set value '${value}' to variable '${variableName}'`)
-        for (const variable of this.internal.variables) {
-            if (variable.name === variableName) {
-                variable.value = value
-                logger.info(`Successfully set value '${value}' to variable '${variable.name}'`)
-                return true
-            }
-        }
-        logger.warn(`Cannot set value '${value}' to variable '${variableName}'. Variable not found.`)
-        return false
+    public setVariable(variableName: string, value: any): void {
+        logger.info(`Set variable '${variableName}' to '${value}'`)
+        this.internal.variables.push({ name: variableName, value})
+    }
+
+    public getParameter(key: string) {
+        return this.internal.req.query[key]
     }
 
     public setResponse(response: string): void {
         this.internal.setResponseValue(response)
-        logger.info(`Set response via function'`)
+        logger.info(`Set response via function`)
+    }
+
+    public log(message: string): void {
+        logger.log('vm', `[SERVICE LOG] ${message}`)
     }
 
     public reply(response?: any) {
@@ -56,7 +56,7 @@ export class Context {
     private setupResponseHeaders() {
         for (const [key, value] of this.responseHeaders) {
             this.internal.res.set(key, value)
-            logger.info(`Added response header: '${key}' -> '${value}'`)
+            logger.info(`Using header: '${key}':'${value}' for '${this.internal.endpointPath}'`)
         }
     }
 
@@ -83,7 +83,7 @@ export namespace Context {
         public updateContext(req: Request, res: Response) {
             this.req = req
             this.res = res
-            logger.info(`[INTERNAL] Updated context for '${this.endpointPath}' (${this.parent.contextId})`)
+            //logger.info(`[INTERNAL] Updated context for '${this.endpointPath}' (${this.parent.contextId})`)
         }
 
         public setResponseValue(responseValue: string): void {
