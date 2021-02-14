@@ -1,6 +1,6 @@
 import { TemplateParser } from "../parsers/template-parser";
 import { readFileSync } from "fs";
-import { generateUniqueId } from "@rockr/rockr-core";
+import {generateUniqueId, Variable} from "@rockr/rockr-core";
 import path from "path";
 
 export enum HttpMethod {
@@ -16,7 +16,8 @@ export class EndpointScript {
     private readonly TEMPLATE_CUSTOM_SCRIPT = '../../templates/custom-script.template'
     private readonly TEMPLATE_ENDPOINT_SCRIPT = '../../templates/endpoint-script.template'
 
-    constructor(private path: string, private httpMethod: HttpMethod = HttpMethod.GET, private customScript?: string) {
+    constructor(private path: string, private httpMethod: HttpMethod = HttpMethod.GET, private customScript?: string, private response?: string, private variables?: Variable[]) {
+        console.log(JSON.stringify(this.variables))
     }
 
     public withMethod(httpMethod: HttpMethod): EndpointScript {
@@ -43,6 +44,8 @@ export class EndpointScript {
         variables.set('ENDPOINT_PATH', this.path)
         variables.set('REQ', generateUniqueId())
         variables.set('RES', generateUniqueId())
+        variables.set('RESPONSE_STRING', this.response)
+        variables.set('RESPONSE_VARS', JSON.stringify(this.variables))
 
         const scriptParser = new TemplateParser(readFileSync(path.resolve(__dirname, this.TEMPLATE_ENDPOINT_SCRIPT)).toString(), variables)
 

@@ -1,13 +1,14 @@
 endpoint_<%=ENDPOINT_UUID=%>();
 function endpoint_<%=ENDPOINT_UUID=%>() {
-    const context = new ctx('<%=ENDPOINT_PATH=%>');
+    const context = new ctx();
+    context.internal.setupContext(`<%=RESPONSE_STRING=%>`, `<%=ENDPOINT_PATH=%>`, <%=RESPONSE_VARS=%>);
 
     <%=CUSTOM_SCRIPT=%>
 
     onCreate(context); // generated in CUSTOM_SCRIPT
 
     app.<%=HTTP_METHOD=%>('<%=ENDPOINT_PATH=%>', (req_<%=REQ=%>, res_<%=RES=%>) => {
-        context.internal.updateContext(req_<%=REQ=%>, res_<%=RES=%>, '<%=ENDPOINT_PATH=%>'); // internal function
+        context.internal.updateContext(req_<%=REQ=%>, res_<%=RES=%>); // internal function
         return onReply(context); // generated in CUSTOM_SCRIPT
     });
 }
