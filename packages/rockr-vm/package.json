@@ -14,7 +14,10 @@
   "dependencies": {
     "@rockr/rockr-core": "^1.0.0",
     "@rockr/rockr-generate-script": "^1.0.0",
-    "express": "^4.17.1"
+    "argparse": "^2.0.1",
+    "express": "^4.17.1",
+    "js-yaml": "^4.0.0",
+    "yaml": "^2.0.0-3"
   },
   "devDependencies": {
     "typescript": "~4.1.3"

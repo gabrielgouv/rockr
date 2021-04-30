@@ -1,12 +1,13 @@
 import { Endpoint } from "./endpoint";
-import * as vm from "vm";
-import {Context, generateIdByName, generateUniqueId, logger, parseToKebabCase} from "@rockr/rockr-core";
+import {Context, generateIdByName, logger, parseToKebabCase} from "@rockr/rockr-core";
 import { VmScript } from "@rockr/rockr-generate-script";
+import {VirtualMachine} from "./virtual-machine";
 
 export class Service {
 
     private readonly serviceId: string
     private readonly endpoints: Endpoint[]
+    private virtualMachine: VirtualMachine
 
     constructor(private readonly name: string, private port: number, private rootPath?: string) {
         this.name = parseToKebabCase(this.name)
@@ -33,7 +34,8 @@ export class Service {
 
     public run() {
         logger.info(`Running ${this.serviceId} on http://localhost:${this.port}/`)
-        vm.runInThisContext(this.getScript())(require, Context)
+
+        new VirtualMachine(this.getScript()).run()(require, Context)
     }
 
     private getScript() {
