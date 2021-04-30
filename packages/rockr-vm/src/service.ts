@@ -33,9 +33,8 @@ export class Service {
     }
 
     public run() {
-        logger.info(`Running ${this.serviceId} on http://localhost:${this.port}/`)
-
         new VirtualMachine(this.getScript()).run()(require, Context)
+        logger.info(`Running ${this.serviceId} on http://localhost:${this.port}/`)
     }
 
     private getScript() {

@@ -1,7 +1,12 @@
 {
   "name": "rockr",
   "private": true,
-  "bin": "./packages/rockr-cli-tool/dist/index.js",
+  "bin": "./packages/rockr-cli/dist/index.js",
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "cli": "node packages/rockr-cli/dist/index.js"
+  },
   "devDependencies": {
     "lerna": "^3.22.1"
   }

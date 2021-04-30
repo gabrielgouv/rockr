@@ -1,6 +1,6 @@
 import { generateUniqueId, logger, Variable } from "..";
 import { Response, Request } from "express";
-import { ResponseAssembler } from "@rockr/rockr-generate-response";
+import { ResponseAssembler } from "../response/response-assembler";
 
 export class Context {
 

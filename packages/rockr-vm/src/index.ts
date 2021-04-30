@@ -1,31 +1,31 @@
 import { Service } from "./service";
 import { Endpoint } from "./endpoint";
-import { HttpMethod } from "@rockr/rockr-generate-script";
-import { Variable } from "@rockr/rockr-core";
 import { Response } from "./response";
 import * as fs from 'fs'
 import { ArgumentParser } from 'argparse';
 import * as yaml from 'js-yaml'
-import {ServiceManager} from "./service-manager";
+import { ServiceManager } from "./service-manager";
 
 const parser = new ArgumentParser({
     description: 'Rockr'
 });
 
-parser.add_argument('-f', '--folder', { help: 'foo bar' })
+parser.add_argument('-d', '--dir', { help: 'Directory containing service definition files' })
+parser.add_argument('-f', '--file', { help: 'Service definition file' })
 
 const args = parser.parse_args()
 
 //const file = fs.readFileSync(args.folder, 'utf-8')
 
-const services = []
+let services = []
 
 const files = fs.readdirSync(args.folder);
 
 for (const fileName of files) {
     const content = fs.readFileSync(args.folder + '/' + fileName, 'utf-8')
+    console.log('Arquivo YAML:')
     console.log(yaml.load(content).services[0].endpoints)
-    services.push(JSON.parse(JSON.stringify(yaml.load(content).services)))
+    services = yaml.load(content).services
 }
 
 const serviceManager = new ServiceManager()
@@ -33,10 +33,12 @@ const serviceManager = new ServiceManager()
 let serviceId = ''
 
 for (const serviceProperties of services) {
+    console.log('Properties YAML to JSON:')
     console.log(serviceProperties)
     const service = new Service(serviceProperties.name, serviceProperties.port, serviceProperties.rootPath)
+    console.log('O ARRAY:')
     console.log(serviceProperties.endpoints)
-    for (const endpointProperties of serviceProperties['endpoints']) {
+    for (const endpointProperties of serviceProperties.endpoints) {
         const response = new Response(endpointProperties.response, endpointProperties.variables)
         const endpoint = new Endpoint(endpointProperties.name, endpointProperties.path, endpointProperties.method)
             .setResponse(response)

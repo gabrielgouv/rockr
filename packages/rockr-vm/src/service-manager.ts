@@ -36,7 +36,9 @@ export class ServiceManager {
     }
 
     public startServiceProcess(serviceId: string) {
-        console.log('Staring service process: ' + serviceId)
+        console.log('Starting service process: ' + serviceId)
+
+        this.services.get(serviceId).run()
         // const proc: ChildProcessWithoutNullStreams = spawn('node', ['dist/index.js'])
         //
         // if (!proc) {
@@ -51,8 +53,8 @@ export class ServiceManager {
         // proc.stderr.on('data', (data) => {
         //     console.error(`error: ${data}`);
         // });
-        //
-        // this.serviceProcesses.set(serviceId, proc)
+
+        this.serviceProcesses.set(serviceId, null)
 
         console.log('Started process for service: ' + serviceId)
     }
@@ -70,14 +72,14 @@ export class ServiceManager {
     }
 
 }
-
-
-const proc: ChildProcessWithoutNullStreams = spawn('node', ['dist/index.js'])
-
-proc.stdout.on('data', (data) => {
-    console.log(`${data}`);
-});
-
-proc.stderr.on('data', (data) => {
-    console.error(`erro: ${data}`);
-});
+//
+//
+// const proc: ChildProcessWithoutNullStreams = spawn('node', ['dist/index.js'])
+//
+// proc.stdout.on('data', (data) => {
+//     console.log(`${data}`);
+// });
+//
+// proc.stderr.on('data', (data) => {
+//     console.error(`erro: ${data}`);
+// });

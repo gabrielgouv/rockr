@@ -11,22 +11,22 @@ services:
             {
                 "name": "John",
                 "age": 15,
-                "email": "<%randomEmail%>"
+                "email": "<%email%>"
             },
             {
                 "name": "<%name%>",
                 "age": <%age%>,
-                "email": "<%randomEmail%>"
+                "email": "<%email%>"
             },
             {
                 "name": "Mark",
                 "age": 10,
-                "email": "<%randomEmail%>"
+                "email": "<%email%>"
             }
           ]
         variables:
-          - name: 'randomEmail'
-            value: 'teste@mail.com'
+          - name: 'email'
+            value: 'email@123.com'
           - name: 'age'
             value: 10
           - name: 'test'

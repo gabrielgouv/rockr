@@ -1,4 +1,4 @@
-import { Variable } from '@rockr/rockr-core'
+import { Variable } from "../context/variable";
 
 export class ResponseAssembler {
 

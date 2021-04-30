@@ -1,6 +1,6 @@
 import { TemplateParser } from "../parsers/template-parser";
 import { readFileSync } from "fs";
-import {generateIdByName, generateUniqueId, Variable} from "@rockr/rockr-core";
+import { generateIdByName, generateUniqueId, Variable } from "@rockr/rockr-core";
 import path from "path";
 
 export enum HttpMethod {
